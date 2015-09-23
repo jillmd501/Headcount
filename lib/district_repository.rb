@@ -24,7 +24,7 @@ class DistrictRepository
   end                                                                                                                         # => :student_qualify_free_lunch_time_and_data
 
   def find_by_name(name)
-    # require 'pry';binding.pry
+    
 
   end                          # => :find_by_name
 end                            # => :find_by_name
