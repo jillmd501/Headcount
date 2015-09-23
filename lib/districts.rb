@@ -5,4 +5,7 @@ class Districts
   end
   def statewide_testing
   end
+  def initialize(district)
+    @district = district
+  end
 end

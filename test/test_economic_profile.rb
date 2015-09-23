@@ -4,7 +4,6 @@ require 'minitest/pride'
 require './lib/economic_profile'
 require './lib/district_repository'
 
-
 class TestEconomicProfile < Minitest::Test
   def test_free_or_reduced_lunch_in_year
     path       = File.expand_path("../data", __dir__)
@@ -37,5 +36,4 @@ class TestEconomicProfile < Minitest::Test
   def test_title_1_students_by_year(year)
     skip
   end
-
 end
