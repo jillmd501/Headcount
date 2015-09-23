@@ -13,10 +13,6 @@ class TestEconomicProfile < Minitest::Test
     assert_equal 0.125, district.economic_profile.free_or_reduced_lunch_in_year(2012)
   end
 
-  def test_free_or_reduced_lunch_by_year
-    skip
-  end
-
   def test_free_or_reduced_lunch_in_year(year)
     skip
   end
