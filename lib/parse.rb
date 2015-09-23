@@ -1,10 +1,21 @@
 require 'csv'
+require 'pry'
 
-def parse_csv_file
-  file_name = File.readlines "Students qualifying for free or reduced price lunch"
-  districts = {}
-  file_name.each do |key, file|
-    File.join(data_dir, file)
-    path = File.expand_path("../data", __dir__)
-    file_path = CSV.read "Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+class Parse
+
+  def initialize(contents)
+    @contents = contents
+  end
+    # binding.pry
+
+  def parse_csv_file
+    contents = CSV.open "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+    contents.each do |row|
+      year = row|:TimeFrame|
+      data = row|:Data|
+      File.join(data_dir, file)
+      path = File.expand_path("../data", __dir__)
+    end
+  end
+
 end
