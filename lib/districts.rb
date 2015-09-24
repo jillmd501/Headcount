@@ -1,5 +1,6 @@
 class Districts
   def economic_profile
+    
   end
   def enrollment
   end

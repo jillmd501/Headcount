@@ -1,39 +1,31 @@
-require_relative 'districts'
-require 'csv'
+require_relative 'districts'  # => true
+
+require 'csv'  # => true
 
 class DistrictRepository
-  def initialize(districts)
-    @districts = {}
-  end
+ attr_reader :districts   # => nil
 
-  # def self.from_csv(path)
-  #   file_name = File.readlines "Students qualifying for free or reduced price lunch"
-  #   districts = {}
-  #   file_name.each do |row|
-  #     columns = file_name.split(",")
-  #     districts << column[0]
-  #   end
-  #   DistrictRepository.new(districts)
-  # end
+ def initialize(districts)
+   @districts  = districts
+ end                        # => :initialize
 
-  def self.from_csv(path)
-    file_name = CSV.read "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
-    columns = file_name.split(",")
-    @districts << columns[0]
-    p districts
-  end
-
-  def student_qualify_free_lunch_time_and_data
-    districts = {}
-    DistrictRepository.new(districts)
-    contents = CSV.open "Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
-      contents.each do |row|
-      timeframe = row[:TimeFrame]
-      data = row[:Data]
+ def self.from_csv(path)
+   final_repository = {}
+   rows = CSV.read "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+   districts = rows.map {|district| district.to_h}
+   districts.each do |row|
+     if !final_repository.include?[row[:location]]
+        final_repository[row[:location]] = Districts.new
+      end
     end
-  end
+    final_repository
+ end                                                                                                                                                           # => :from_csv
 
-  def find_by_name(name)
-    Districts.new(district)
-  end
-end
+ def find_by_name(district)
+   districts
+ end                     # => :find_by_name
+
+ def find_by_all
+ end              # => :find_by_all
+
+end  # => :find_by_all
