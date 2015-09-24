@@ -1,21 +1,31 @@
 require 'csv'
 require 'pry'
+require_relative 'districts'
 
 class Parse
 
-  def initialize(contents)
-    @contents = contents
+  def initialize(district_name, file)
+    # initialize variables
+    @district_name = district_name
+    @file          = "Students qualifying for free or reduced price lunch.csv"
   end
-    # binding.pry
 
-  def parse_csv_file
-    contents = CSV.open "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
-    contents.each do |row|
-      year = row|:TimeFrame|
-      data = row|:Data|
-      File.join(data_dir, file)
-      path = File.expand_path("../data", __dir__)
-    end
+  def parser
+    @row   = row_creating_method
+    @hash  = hash_creating_method
+  end
+
+  def row_creating_method
+    # Creates filepath to open up file (in order to extract data later)
+    path = File.expand_path("../data", __dir__)
+    fullpath = File.join(path, @file)
+    CSV.read(fullpath, headers: true, header_converters: :symbol)
+    #  binding.pry
+  end
+
+  def hash_creating_method
+    final_rows = @row.map{|array| array.to_h}
+    final_rows.select{|row| row.fetch(:location) == @district_name}
   end
 
 end

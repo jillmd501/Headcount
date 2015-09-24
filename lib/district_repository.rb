@@ -1,6 +1,7 @@
 require_relative 'districts'
 require_relative 'economic_profile'
 require 'csv'
+require_relative 'parse'
 
 class DistrictRepository
   attr_reader :districts

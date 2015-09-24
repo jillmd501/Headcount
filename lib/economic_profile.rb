@@ -7,16 +7,16 @@ class EconomicProfile
 
   def initialize(districts)
     @districts = districts
+
   end
 
   def free_or_reduced_lunch_in_year(year)
-    rows = CSV.open "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+    parsed = Parse.new()
+    # @rows = CSV.open "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
     # row_hash = rows.map {|row| row.to_h}
-    data = []
-    year = []
-    districts = rows.map {|district| district.to_h}
-    districts.each_with_index do |index, value|
-       data << index[:data][0..index.length]
+    #
+    # require 'pry';binding.pry
+    # districts = row_hash.select {|district| district.to_h[:timeframe] == year}
   end
 
 end
