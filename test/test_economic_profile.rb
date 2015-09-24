@@ -15,24 +15,4 @@ class TestEconomicProfile < Minitest::Test
     # require 'pry';binding.pry
     assert_equal 0.125, district.economic_profile.free_or_reduced_lunch_in_year(2012)
   end
-
-  # def test_free_or_reduced_lunch_in_year
-  #   skip
-  # end
-  #
-  # def test_school_aged_children_in_poverty_in_year
-  #   skip
-  # end
-  #
-  # def test_school_aged_children_in_poverty_in_year
-  #   skip
-  # end
-  #
-  # def test_title_1_students_by_year
-  #   skip
-  # end
-  #
-  # def test_title_1_students_by_year
-  #   skip
-  # end
 end
