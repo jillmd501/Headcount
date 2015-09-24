@@ -1,5 +1,5 @@
 require_relative 'districts'
-
+require_relative 'economic_profile'
 require 'csv'
 
 class DistrictRepository
