@@ -1,5 +1,6 @@
 class Enrollment
 
+
   def intialize
   end
 
@@ -176,5 +177,4 @@ class Enrollment
     # The method returns a single three-digit floating point percentage.
     # Example: enrollment.remediation_in_year(2010) # => 0.250
   end
-
 end
