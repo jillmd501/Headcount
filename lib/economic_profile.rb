@@ -1,11 +1,24 @@
+require 'csv'
+require_relative 'districts'
+
 class EconomicProfile
-  def initialize(district)
-    @district =
+  attr_reader :data
+
+  def initialize(districts)
+    @districts = districts
   end
 
-  def student_qualify_free_lunch_time_and_data
-    District.new(districts)
-    contents = CSV.open "Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+  def free_or_reduced_lunch_in_year(year)
+    rows = CSV.read "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+    data = []
+    year = []
+    districts = rows.map {|district| district.to_h}
+    districts.each_with_index do |index, value|
+       data << index[:data][0..index.length]
+       year << index[:timeframe][0..index.length]
+       end
+    jill = Hash[year.zip(data)]
+    require 'pry';binding.pry
   end
-end
+
 end
