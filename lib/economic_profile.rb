@@ -19,8 +19,11 @@ class EconomicProfile
        data << index[:data][0..index.length]
        year << index[:timeframe][0..index.length]
      end
-     jill = Hash[year.zip(data)]
-    require 'pry';binding.pry
+     districts.each_with_index do |district|
+       location = district.extract!(:location, :x)
+     end
+    #  jill = Hash[year.zip(data)]
+    # require 'pry';binding.pry
   end
 
 end
