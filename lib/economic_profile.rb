@@ -11,7 +11,15 @@ class EconomicProfile
   end
 
   def free_or_reduced_lunch_in_year(year)
-    parsed = Parse.new()
+    file = "Students qualifying for free or reduced price lunch.csv"
+    parsed = Parse.new(@districts, file).parser
+    data = {}
+    parsed.each do |row|
+      if row.fetch(:dataformat) == "Percent"
+        data = row(:data)
+      end
+    end
+    require 'pry'; binding.pry
     # @rows = CSV.open "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
     # row_hash = rows.map {|row| row.to_h}
     #
