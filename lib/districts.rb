@@ -18,5 +18,5 @@ class Districts
   def enrollment
     enroll = Enrollment.new(name)
   end
-  
+
 end
