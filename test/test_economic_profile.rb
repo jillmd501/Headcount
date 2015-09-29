@@ -1,7 +1,7 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-# require './lib/economic_profile'
+require './lib/economic_profile'
 require './lib/district_repository'
 require './lib/districts'
 require './lib/parse'
@@ -26,7 +26,7 @@ class TestEconomicProfile < Minitest::Test
     assert_equal 0.066, district.economic_profile.free_or_reduced_lunch_in_year(2012)
   end
 
-  def test_school_aged_children_in_poverty_in_year
+  def test_school_aged_children_in_poverty_by_year
     path       = File.expand_path("../data", __dir__)
     repository = DistrictRepository.from_csv(path)
     district   = repository.find_by_name("ACADEMY 20")

@@ -7,34 +7,40 @@ require_relative 'file_names'
 class EconomicProfile
   attr_reader :data
 
+  def truncate(percentage)
+  (percentage.to_f * 1000).to_i / 1000.0
+  end
+
   def initialize(districts, data)
     @districts = districts
     @data = data
   end
 
-  def free_or_reduced_lunch_in_year(year)
-    timeframe  = data.select{|row| row.fetch(:timeframe) == year.to_s && row.fetch(:poverty_level) == "Eligible for Free or Reduced Lunch"}
-    # timeframe.find {|thing| thing.fetch(:data) == data}
-    dataformat = timeframe.select {|row| row.fetch(:dataformat) == "Percent"}
-    data = dataformat.map {|hashes| hashes.fetch(:data)}
-    data[0].to_f.round(3)
-    # binding.pry
+  def free_or_reduced_lunch_by_year
+    data.select { |row| row[:dataformat] == 'Percent' && row[:poverty_level] == 'Eligible for Free or Reduced Lunch' }
+        .map { |row| [row[:timeframe].to_i, truncate(row[:data])] }
+        .to_h
   end
 
-  def free_or_reduced_lunch_by_year
-    timeframe  = data.select{|row| row.fetch(:timeframe) == year.to_s && row.fetch(:poverty_level) == "Eligible for Free or Reduced Lunch"}
-    # timeframe.find {|thing| thing.fetch(:data) == data}
-    dataformat = timeframe.select {|row| row.fetch(:dataformat) == "Percent"}
-    data = dataformat.map {|hashes| hashes.fetch(:data)}
-    binding.pry
+  def free_or_reduced_lunch_in_year(year)
+    if free_or_reduced_lunch_by_year[year]
+      free_or_reduced_lunch_by_year.fetch(year)
+    else
+      nil
+    end
+  end
+
+  def school_aged_children_in_poverty_by_year
+    data.select { |row| row[:dataformat] == 'Percent' && row[:poverty_level] == 'School-aged children in poverty' }
+        .map { |row| [row[:timeframe].to_i, truncate(row[:data])] }
+        .to_h
   end
 
   def school_aged_children_in_poverty_in_year(year)
-    timeframe  = data.select{|row| row.fetch(:timeframe) == year.to_s && row.fetch(:dataformat) == "Percent"}
-    # timeframe.find {|thing| thing.fetch(:data) == data}
-    dataformat = timeframe.select {|row| row.fetch(:dataformat) == "Percent"}
-    data = dataformat.map {|hashes| hashes.fetch(:data)}
-    data[0].to_f.round(3)
-    # binding.pry
+    if school_aged_children_in_poverty_by_year[year]
+       school_aged_children_in_poverty_by_year(year)
+    else
+      nil
+    end
   end
 end
