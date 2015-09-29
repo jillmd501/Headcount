@@ -13,7 +13,7 @@ class DistrictRepository
 
   def self.from_csv(path)
    @final_repository = {}
-   rows = CSV.read "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
+   rows = CSV.read "/Users/jilldonohue/projects/Headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
    districts = rows.map {|district| district.to_h}
    districts.each do |row|
      if !@final_repository.include?(row[:location])

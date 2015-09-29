@@ -4,28 +4,37 @@ require_relative 'districts'
 
 class Parse
 
-  def initialize(district_name, file, data_hash={})
-    # initialize variables
+  def initialize(district_name)
     @district_name = district_name
-    @file          = file
-    @data_hash     = hash
+
   end
 
-  def parser
-    open_row    = open_data_by_row
-    create_hash = create_hash_of_data
+  def load(file)
+    @row   = row_creating_method(file)
+    @hash  = hash_creating_method(file)
   end
 
-  def open_data_by_row
-    # Creates filepath to open up file (in order to extract data later)
-    path = File.expand_path("../data", __dir__)
-    fullpath = File.join(path, @file)
-    CSV.read(fullpath, headers: true, header_converters: :symbol)
-    #  binding.pry
+  def row_creating_method(file)
+    fullpath = File.join("../data", file)
+    path = File.expand_path(fullpath, __dir__)
+    CSV.read path, headers: true, header_converters: :symbol
   end
 
-  def create_hash_of_data(row)
-    final_rows = rows.map{|array| array.to_h}
+  def hash_creating_method(file)
+    final_rows = @row.map {|row| row.to_h}
+    final_rows.select{|row| row.fetch(:location) == @district_name}
+  end
+
+  def load_economic_profile
+    # iterate through an array of files
+    file = "Students qualifying for free or reduced price lunch.csv"
+    load(file)
+  end
+
+  def load_enrollment
+  end
+
+  def load_statewide_testing
   end
 
 end
