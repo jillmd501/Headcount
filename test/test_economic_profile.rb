@@ -45,7 +45,7 @@ class TestEconomicProfile < Minitest::Test
   end
 
   def test_median_income_by_years
-    skip
+
     path       = File.expand_path("../data", __dir__)
     repository = DistrictRepository.from_csv(path)
     district   = repository.find_by_name("Colorado")
@@ -61,19 +61,19 @@ class TestEconomicProfile < Minitest::Test
   end
 
   def test_title_1_by_year
-
+    skip
     path       = File.expand_path("../data", __dir__)
     repository = DistrictRepository.from_csv(path)
     district   = repository.find_by_name("AGATE 300")
-    assert_equal 0.6, district.title_1_students_in_year(2012)
+    assert_equal 0.6, district.economic_profile.title_1_students_in_year(2012)
   end
 
   def test_title_1_by_year_in_different_district
-
+    skip
     path       = File.expand_path("../data", __dir__)
     repository = DistrictRepository.from_csv(path)
     district   = repository.find_by_name("ADAMS COUNTY 14")
-    assert_equal 0.669, district.title_1_students_in_year(2009)
+    assert_equal 0.669, district.economic_profile.title_1_students_in_year(2009)
   end
 
 end

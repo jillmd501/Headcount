@@ -2,6 +2,7 @@ require_relative 'districts'
 require_relative 'economic_profile'
 require 'csv'
 require_relative 'parse'
+require 'pry'
 
 class DistrictRepository
   attr_reader :districts
@@ -18,6 +19,8 @@ class DistrictRepository
    districts.each do |row|
      if !@final_repository.include?(row[:location])
         @final_repository[row[:location]] = Districts.new(row[:location])
+        binding.pry
+
       end
     end
     self

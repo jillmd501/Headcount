@@ -13,7 +13,7 @@ class EconomicProfile
 
   def initialize(districts, data)
     @districts = districts
-    @data = data
+    @data      = data
   end
 
   def free_or_reduced_lunch_by_year
@@ -37,7 +37,7 @@ class EconomicProfile
       # binding.pry
   end
 
-  def free_or_reduced_lunch_in_year(year)
+  def school_aged_children_in_poverty_in_year(year)
     if free_or_reduced_lunch_by_year[year]
       free_or_reduced_lunch_by_year.fetch(year)
     else
@@ -50,6 +50,22 @@ class EconomicProfile
         .map { |row| [row[:timeframe], truncate(row[:data])] }
         .to_h[year.to_s]
       # binding.pry
+  end
+
+  def title_1_students_by_year(year)
+    if title_1_students_in_year[year]
+       title_1_students_in_year.fetch(year)
+    else
+      nil
+    end
+  end
+
+  def median_income_by_years(year)
+    data.select { |row| row[:dataformat] == 'Currency' }
+        .map { |row| [row[:timeframe], row[:data]] }
+        binding.pry
+        .to_h[year.to_s]
+        # binding.pry
   end
 
 end
