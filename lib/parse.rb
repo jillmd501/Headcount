@@ -1,6 +1,7 @@
 require 'csv'
 require 'pry'
 require_relative 'districts'
+require_relative 'file_names'
 
 class Parse
 
@@ -22,13 +23,14 @@ class Parse
 
   def hash_creating_method(file)
     final_rows = @row.map {|row| row.to_h}
-    final_rows.select{|row| row.fetch(:location) == @district_name}
+    final_rows.each.select{|row| row.fetch(:location) == @district_name.downcase.capitalize}
+
   end
 
   def load_economic_profile
-    # iterate through an array of files
-    file = "Median household income.csv"
-    load(file)
+    @data = {}
+    @data[:median_household_income] = load(FileNames.file_median_income)
+    @data[:lunches] = load(FileNames.file_lunches)
   end
 
   def load_enrollment

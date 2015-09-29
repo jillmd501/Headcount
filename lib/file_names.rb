@@ -1,7 +1,18 @@
 class FileNames
 
-  def file_names
-    array_of_files = ["Students qualifying for free or reduced price lunch.csv", "School-aged children in poverty.csv", "Students qualifying for free or reduced price lunch.csv", "Title I students.csv"]
+  def self.file_lunches
+    "Students qualifying for free or reduced price lunch.csv"
   end
 
+  def self.file_school_aged_poverty
+    "School-aged children in poverty.csv"
+  end
+
+  def self.file_title_1
+    "Title I students.csv"
+  end
+
+  def self.file_median_income
+    "Median household income.csv"
+  end
 end
