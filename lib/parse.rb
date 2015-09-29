@@ -27,7 +27,7 @@ class Parse
 
   def load_economic_profile
     # iterate through an array of files
-    file = "Students qualifying for free or reduced price lunch.csv"
+    file = "Title I students.csv"
     load(file)
   end
 

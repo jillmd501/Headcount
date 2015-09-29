@@ -30,17 +30,26 @@ class EconomicProfile
     end
   end
 
-  def school_aged_children_in_poverty_by_year
-    data.select { |row| row[:dataformat] == 'Percent' && row[:poverty_level] == 'School-aged children in poverty' }
-        .map { |row| [row[:timeframe].to_i, truncate(row[:data])] }
-        .to_h
+  def school_aged_children_in_poverty_in_year(year)
+    data.select { |row| row[:dataformat] == 'Percent' }
+        .map { |row| [row[:timeframe], truncate(row[:data])] }
+        .to_h[year.to_s]
+      # binding.pry
   end
 
-  def school_aged_children_in_poverty_in_year(year)
-    if school_aged_children_in_poverty_by_year[year]
-       school_aged_children_in_poverty_by_year(year)
+  def free_or_reduced_lunch_in_year(year)
+    if free_or_reduced_lunch_by_year[year]
+      free_or_reduced_lunch_by_year.fetch(year)
     else
       nil
     end
   end
+
+  def title_1_students_in_year(year)
+    data.select { |row| row[:dataformat] == 'Percent' }
+        .map { |row| [row[:timeframe], truncate(row[:data])] }
+        .to_h[year.to_s]
+      # binding.pry
+  end
+
 end

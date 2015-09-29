@@ -1,7 +1,7 @@
 require_relative 'economic_profile'
 require_relative 'district_repository'
 require_relative 'parse'
-
+  
 class Districts
   attr_accessor :name
 
