@@ -1,12 +1,12 @@
 require_relative 'district'
+require 'json'
 require 'pry'
 
 class DistrictRepository
   def self.from_json(path)
-    require "pry"
-    binding.pry
-    DistrictRepository.new(districts_data)
-  end
+    data = JSON.parse(File.read(path))
+    DistrictRepository.new(data)
+    end
 
   attr_reader :districts
 
@@ -18,11 +18,10 @@ class DistrictRepository
   end
 
   def find_by_name(name)
-    if @final_repository.has_key?(name.upcase)
-      @final_repository.fetch(name.upcase)
-    else
-      nil
-    end
+    district_data = @final_repository.fetch(name.downcase)
+    
+    District.new(district_data)
+
   end
 
   def find_all_matching(name_fragment)

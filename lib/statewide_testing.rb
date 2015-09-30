@@ -1,7 +1,9 @@
 require_relative 'unknown_error'
 
 class StatewideTesting
-  def initialize(name)
+  attr_reader :data
+  def initialize(data)
+    @data = data.map { |key, value| [key.to_sym, value] }.to_h
   end
 
   def proficient_by_grade(grade)
@@ -17,7 +19,7 @@ class StatewideTesting
   end
 
   def proficient_for_subject_by_grade_in_year(subject, grade ,year)
-    # 0.857
+
     #subject as a symbol from the following set: [:math, :reading, :writing]
     #grade as an integer from the following set: [3, 8]
     #year as an integer for any year reported in the data

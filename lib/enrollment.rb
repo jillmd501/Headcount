@@ -1,5 +1,9 @@
 class Enrollment
-  def initialize(name)
+
+  attr_reader :data
+
+  def initialize(data)
+    @data = data.map { |key, value| [key.to_sym, value] }.to_h
   end
 
   def dropout_rate_in_year(year)
@@ -100,19 +104,11 @@ class Enrollment
   end
 
   def participation_by_year
-#     # method returns a hash with years as keys and an integer as the value.
-#     # Example:enrollment.participation_by_year
-#     # => { 2009 => 22620,
-#     #      2010 => 22620,
-#     #      2011 => 23119,
-#     #      2012 => 23657,
-#     #      2013 => 23973,
-#     #      2014 => 24578,
-#     #    }
+    @data.fetch(:participation_by_year)
   end
 
   def participation_in_year(year)
-    22620
+      participation_by_year[year.to_s]
   end
 
   def participation_by_race_or_ethnicity(race)
