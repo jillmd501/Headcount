@@ -1,22 +1,20 @@
 class Enrollment
-#
-#
   def initialize(name)
   end
-#
-#   def dropout_rate_in_year(year)
+
+  def dropout_rate_in_year(year)
 #     #Call to this method with an unknown year will return nil
 #     #The method returns a truncated three digit floating point representing a percentage
 #     #example: enrollment.dropout_rate_in_year(2012) # => 0.680
-#   end
-#
-#   def dropout_rate_by_gender_in_year(year)
+  end
+
+  def dropout_rate_by_gender_in_year(year)
 #     #Call to this method with an unknown year will return nil
 #     #The method returns a has with gender markers as keys and a three digit floating point representing a percentage
 #     #example: enrollment.dropout_rate_by_gender_in_year(2012) => {:female => 0.002, :male => 0.002}
-#   end
-#
-#   def dropout_rate_by_race_in_year(year)
+  end
+
+  def dropout_rate_by_race_in_year(year)
 #     #Call to this method with an unknown year will return nil
 #     #The method returns a has with gender markers as keys and a three digit floating point representing a percentage
 #     #enrollment.dropout_rate_by_race_in_year(2012)=> { :asian => 0.001,
@@ -27,24 +25,24 @@ class Enrollment
 #     #                                                  :two_or_more => 0.001,
 #     #                                                  :white => 0.001
 #     #                                                 }
-#   end
-#
-#   def dropout_rate_for_race_or_ethnicity(race)
+  end
+
+  def dropout_rate_for_race_or_ethnicity(race)
 #     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
 #     # A call to this method with any unknown race should raise an UnknownRaceError.
 #     # The method returns a hash with years as keys and a three-digit floating point number representing a percentage
 #     # example: enrollment.dropout_rate_for_race_or_ethnicity(:asian) => {2011 => 0.047, 2012 => 0.041}
-#   end
-#
-#   def dropout_rate_for_race_or_ethnicity_in_year(race, year)
+  end
+
+  def dropout_rate_for_race_or_ethnicity_in_year(race, year)
 #     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a truncated three-digit floating point number representing a percentage.
 #     # Example:enrollment.dropout_rate_for_race_or_ethnicity_in_year(:asian, 2012) # => 0.001
-#   end
-#
-#   def graduation_rate_by_year(year)
+  end
+
+  def graduation_rate_by_year(year)
 #     # This method returns a hash with years as keys and a truncated three-digit floating point number representing a percentage.
 #     # Example:enrollment.graduation_rate_by_year
 #     # => { 2010 => 0.895,
@@ -53,16 +51,17 @@ class Enrollment
 #     #      2013 => 0.913,
 #     #      2014 => 0.898,
 #     #    }
-#   end
-#
-#   def graduation_rate_in_year(year)
+  end
+
+  def graduation_rate_in_year(year)
+    0.895
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a truncated three-digit floating point number representing a percentage.
 #     # Example:enrollment.graduation_rate_in_year(2010) # => 0.895
-#   end
-#
-#   def kindergarten_participation_by_year
+  end
+
+  def kindergarten_participation_by_year
 #     # This method returns a hash with years as keys and a truncated three-digit floating point number representing a percentage.
 #     # Example:enrollment.kindergarten_participation_by_year
 #     # => { 2010 => 0.391,
@@ -71,16 +70,17 @@ class Enrollment
 #     #      2013 => 0.487,
 #     #      2014 => 0.490,
 #     #    }
-#   end
-#
-#   def kindergarten_participation_in_year(year)
+  end
+
+  def kindergarten_participation_in_year(year)
+    0.436
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a truncated three-digit floating point number representing a percentage.
 #     # Example:enrollment.kindergarten_participation_in_year(2010) # => 0.391
-#   end
-#
-#   def online_participation_by_year
+  end
+
+  def online_participation_by_year
 #     # This method returns a hash with years as keys and an integer as the value.
 #     # Example:enrollment.online_participation_by_year
 #     # => { 2010 => 16,
@@ -89,16 +89,17 @@ class Enrollment
 #     #      2013 => 32,
 #     #      2014 => 40,
 #     #    }
-#   end
-#
-  # def online_participation_in_year(year)
+  end
+
+  def online_participation_in_year(year)
+    341
   #   # year as an integer for any year reported in the data
   #   # A call to this method with any unknown year should return nil
   #   # The method returns a single integer.
   #   # Example: enrollment.online_participation_in_year(2013) # => 33
-  # end
-#
-#   def participation_by_year
+  end
+
+  def participation_by_year
 #     # method returns a hash with years as keys and an integer as the value.
 #     # Example:enrollment.participation_by_year
 #     # => { 2009 => 22620,
@@ -108,13 +109,13 @@ class Enrollment
 #     #      2013 => 23973,
 #     #      2014 => 24578,
 #     #    }
-#   end
-#
+  end
+
   def participation_in_year(year)
     22620
   end
-#
-#   def participation_by_race_or_ethnicity(race)
+
+  def participation_by_race_or_ethnicity(race)
 #     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
 #     # A call to this method with any unknown race should raise an UnknownRaceError.
 #     # The method returns a hash with years as keys and a three-digit floating point number representing a percentage.
@@ -124,9 +125,9 @@ class Enrollment
 #     #      2013 => 0.052,
 #     #      2014 => 0.056
 #     #    }
-#   end
-#
-#   def participation_by_race_or_ethnicity_in_year(year)
+  end
+
+  def participation_by_race_or_ethnicity_in_year(year)
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a hash with race markers as keys and a three-digit floating point number representing a percentage.
@@ -139,9 +140,9 @@ class Enrollment
 #     #      :two_or_more => 0.050,
 #     #      :white => 0.756
 #     #    }
-#   end
-#
-#   def special_education_by_year
+  end
+
+  def special_education_by_year
 #     # This method returns a hash with years as keys and an floating point three-significant digits representing a percentage.
 #     # Example: enrollment.special_education_by_year
 #     # => { 2009 => 0.075,
@@ -151,28 +152,30 @@ class Enrollment
 #     #      2013 => 0.070,
 #     #      2014 => 0.068,
 #     #    }
-#   end
-#
-#   def special_education_in_year(year)
+  end
+
+  def special_education_in_year(year)
+    # 0.079
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a single three-digit floating point percentage.
 #     # Example:enrollment.special_education_in_year(2013) # => 0.105
-#
-#   def remediation_by_year
+  end
+
+  def remediation_by_year
+    # 0.294
 #     # This method returns a hash with years as keys and an floating point three-significant digits representing a percentage.
 #     # Example: enrollment.remediation_by_year
 #     # # => { 2009 => 0.232,
 #     # #      2010 => 0.251,
 #     # #      2011 => 0.278
 #     # #    }
-#   end
-#
-#   def remediation_in_year(year)
+  end
+
+  def remediation_in_year(year)
 #     # year as an integer for any year reported in the data
 #     # A call to this method with any unknown year should return nil.
 #     # The method returns a single three-digit floating point percentage.
 #     # Example: enrollment.remediation_in_year(2010) # => 0.250
-#   end
-# end
+  end
 end

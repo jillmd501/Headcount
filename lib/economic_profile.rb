@@ -1,19 +1,16 @@
 require 'pry'
-require 'csv'
-require_relative 'district_repository'
-require_relative 'districts'
-require_relative 'file_names'
 
 class EconomicProfile
   attr_reader :data
 
-  def truncate(percentage)
-  (percentage.to_f * 1000).to_i / 1000.0
+  # data is a hash whose keys are things like
+  #   :free_or_reduced_lunch_by_year
+  def initialize(data)
+    @data = data
   end
 
-  def initialize(districts, data)
-    @districts = districts
-    @data      = data
+  def truncate(percentage)
+    (percentage.to_f * 1000).to_i / 1000.0
   end
 
   def free_or_reduced_lunch_by_year
@@ -31,9 +28,6 @@ class EconomicProfile
   end
 
   def school_aged_children_in_poverty_in_year(year)
-    data.select { |row| row[:dataformat] == 'Percent' }
-        .map { |row| [row[:timeframe], truncate(row[:data])] }
-        .to_h[year.to_s]
   end
 
   def school_aged_children_in_poverty_in_year(year)
@@ -45,10 +39,6 @@ class EconomicProfile
   end
 
   def title_1_students_in_year(year)
-    data.select { |row| row[:dataformat] == 'Percent' }
-        .map { |row| [row[:timeframe], truncate(row[:data])] }
-        .to_h[year.to_s]
-
   end
 
   def title_1_students_by_year(year)
@@ -60,9 +50,5 @@ class EconomicProfile
   end
 
   def median_income_by_years(year)
-    data.select { |row| row[:dataformat] == 'Currency' }
-        .map { |row| [row[:timeframe], row[:data]] }
-        .to_h[year.to_s]
   end
-
 end

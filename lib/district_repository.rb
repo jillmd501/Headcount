@@ -1,40 +1,31 @@
-require_relative 'districts'
-require_relative 'economic_profile'
-require 'csv'
-require_relative 'parse'
+require_relative 'district'
 require 'pry'
 
 class DistrictRepository
+  def self.from_json(path)
+    require "pry"
+    binding.pry
+    DistrictRepository.new(districts_data)
+  end
+
   attr_reader :districts
 
-  def initialize(districts)
-    @districts  = districts
+  # final_repository is a hash
+  #   keys are district names
+  #   values are hashes of district data
+  def initialize(final_repository)
     @final_repository = final_repository
   end
 
-  def self.from_csv(path)
-   @final_repository = {}
-
-   rows = CSV.read "/Users/marlomajor/code/headcount/data/Students qualifying for free or reduced price lunch.csv", headers: true, header_converters: :symbol
-  #  binding.pry
-   districts = rows.map {|district| district.to_h}
-   districts.each do |row|
-     if !@final_repository.include?(row[:location])
-        @final_repository[row[:location].upcase] = Districts.new(row[:location])
-      end
-    end
-    self
-   end
-
-  def self.find_by_name(name)
+  def find_by_name(name)
     if @final_repository.has_key?(name.upcase)
-    name = @final_repository.fetch(name.upcase)
-    name
-  else nil
+      @final_repository.fetch(name.upcase)
+    else
+      nil
     end
   end
 
-  def self.find_all_matching(name_fragment)
+  def find_all_matching(name_fragment)
     result_array = []
     @final_repository.each do |word|
       if word[0].include?(name_fragment.upcase)
