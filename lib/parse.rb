@@ -31,6 +31,7 @@ class Parse
     @data = {}
     @data[:median_household_income] = load(FileNames.file_median_income)
     @data[:lunches] = load(FileNames.file_lunches)
+    # / binding.pry
   end
 
   def load_enrollment

@@ -1,5 +1,7 @@
 require_relative 'economic_profile'
 require_relative 'district_repository'
+require_relative 'statewide_testing'
+require_relative 'enrollment'
 require_relative 'parse'
 
 class Districts
@@ -12,7 +14,7 @@ class Districts
   def economic_profile
     data = Parse.new(@name).load_economic_profile
     EconomicProfile.new(name, data)
-    binding.pry
+    
   end
 
   def statewide_testing
