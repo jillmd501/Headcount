@@ -40,11 +40,13 @@ class EconomicProfile
   def title_1_students_by_year
     title_1 = @data.fetch(:title_1_students_by_year)
     title_1.map { |key, value| [key.to_i, value] }.to_h
+
   end
 
   def title_1_students_in_year(year)
-    if title_1_students_by_year.fetch(year.to_s)
-       title_1_students_by_year.fetch(year.to_s)
+    if title_1_students_by_year.fetch(year)
+       title_1_students_by_year.fetch(year)
+
     else
       nil
     end

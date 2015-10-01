@@ -7,7 +7,9 @@ class StatewideTesting
   end
 
   def proficient_by_grade(grade)
-    empty_hash = {}
+    proficient_by_grade = @data.fetch(:proficient_by_grade)
+    proficient_by_grade.map { |key, value| [key.to_i, value] }.to_h
+    binding.pry
 #     #Call to this method with unknown grade should return an unknown error
 #     #The method returns a hash grouped by year referencing percentages by subject all as three digit floats
   end
@@ -24,7 +26,7 @@ class StatewideTesting
          .select {|row| row.fetch("grade") == grade}
          .select {|row| row.fetch("year") == year}
          .map    {|row| row.fetch("proficiency")}.pop
-         
+
   end
 
   def proficient_for_subject_in_year(subject, year)
