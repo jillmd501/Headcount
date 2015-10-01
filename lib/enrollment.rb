@@ -64,112 +64,83 @@ class Enrollment
   end
 
   def kindergarten_participation_by_year
-#     # This method returns a hash with years as keys and a truncated three-digit floating point number representing a percentage.
-#     # Example:enrollment.kindergarten_participation_by_year
-#     # => { 2010 => 0.391,
-#     #      2011 => 0.353,
-#     #      2012 => 0.267,
-#     #      2013 => 0.487,
-#     #      2014 => 0.490,
-#     #    }
+    kindergarten_participation_by_year = @data.fetch(:kindergarten_participation_by_year)
+    kindergarten_participation_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def kindergarten_participation_in_year(year)
-    0.436
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a truncated three-digit floating point number representing a percentage.
-#     # Example:enrollment.kindergarten_participation_in_year(2010) # => 0.391
+    if kindergarten_participation_by_year.has_key?(year)
+       kindergarten_participation_by_year.fetch(year)
+    else
+      nil
+    end
   end
 
   def online_participation_by_year
-#     # This method returns a hash with years as keys and an integer as the value.
-#     # Example:enrollment.online_participation_by_year
-#     # => { 2010 => 16,
-#     #      2011 => 18,
-#     #      2012 => 24,
-#     #      2013 => 32,
-#     #      2014 => 40,
-#     #    }
+    online_participation_by_year = @data.fetch(:online_participation_by_year)
+    online_participation_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def online_participation_in_year(year)
-    341
-  #   # year as an integer for any year reported in the data
-  #   # A call to this method with any unknown year should return nil
-  #   # The method returns a single integer.
-  #   # Example: enrollment.online_participation_in_year(2013) # => 33
+    if online_participation_by_year.has_key?(year)
+       online_participation_by_year.fetch(year)
+    else
+      nil
+    end
   end
 
   def participation_by_year
-    @data.fetch(:participation_by_year)
+    participation_by_year = @data.fetch(:participation_by_year).map { |key, value| [key.to_i, value] }.to_h
+    participation_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def participation_in_year(year)
-      participation_by_year[year.to_s]
+    if participation_by_year.has_key?(year)
+       participation_by_year.fetch(year)
+    else
+      nil
+    end
   end
 
   def participation_by_race_or_ethnicity(race)
-#     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
-#     # A call to this method with any unknown race should raise an UnknownRaceError.
-#     # The method returns a hash with years as keys and a three-digit floating point number representing a percentage.
-#     # Example: enrollment.participation_by_race_or_ethnicity(:asian)
-#     # => { 2011 => 0.047,
-#     #      2012 => 0.041,
-#     #      2013 => 0.052,
-#     #      2014 => 0.056
-#     #    }
+    participation_by_race_or_ethnicity = @data.fetch(:participation_by_race_and_year)
+    race = participation_by_race_or_ethnicity.select { |row| row.fetch("race").to_sym == race}
+    race.map {|key, value| [key.fetch("year"), key.fetch("rate")]}.to_h
   end
 
   def participation_by_race_or_ethnicity_in_year(year)
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a hash with race markers as keys and a three-digit floating point number representing a percentage.
-#     # Example:enrollment.participation_by_race_or_ethnicity_in_year(2012)
-#     # => { :asian => 0.036,
-#     #      :black => 0.029,
-#     #      :pacific_islander => 0.118,
-#     #      :hispanic => 0.003,
-#     #      :native_american => 0.004,
-#     #      :two_or_more => 0.050,
-#     #      :white => 0.756
-#     #    }
+    participation_by_race_or_ethnicity_in_year = @data.fetch(:participation_by_race_and_year)
+    if participation_by_race_or_ethnicity_in_year.select {|row| row.fetch("year") == year} == true
+      races = participation_by_race_or_ethnicity_in_year.select {|row| row.fetch("year") == year}
+      races.map {|row| [row.fetch("race").to_sym, row.fetch("rate")]}.to_h
+    else
+      nil
+    end
   end
 
   def special_education_by_year
-#     # This method returns a hash with years as keys and an floating point three-significant digits representing a percentage.
-#     # Example: enrollment.special_education_by_year
-#     # => { 2009 => 0.075,
-#     #      2010 => 0.078,
-#     #      2011 => 0.072,
-#     #      2012 => 0.071,
-#     #      2013 => 0.070,
-#     #      2014 => 0.068,
-#     #    }
+    special_education_by_year = @data.fetch(:special_education_by_year)
+    special_education_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def special_education_in_year(year)
-    # 0.079
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a single three-digit floating point percentage.
-#     # Example:enrollment.special_education_in_year(2013) # => 0.105
+    if special_education_by_year.has_key?(year)
+       special_education_by_year.fetch(year)
+    else
+      nil
+    end
   end
 
   def remediation_by_year
-    # 0.294
-#     # This method returns a hash with years as keys and an floating point three-significant digits representing a percentage.
-#     # Example: enrollment.remediation_by_year
-#     # # => { 2009 => 0.232,
-#     # #      2010 => 0.251,
-#     # #      2011 => 0.278
-#     # #    }
+    remediation_by_year = @data.fetch(:remediation_by_year)
+    remediation_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def remediation_in_year(year)
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a single three-digit floating point percentage.
-#     # Example: enrollment.remediation_in_year(2010) # => 0.250
+    if remediation_by_year.has_key?(year)
+       remediation_by_year.fetch(year)
+    else
+      nil
+    end
   end
 end
