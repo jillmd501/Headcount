@@ -19,11 +19,12 @@ class StatewideTesting
   end
 
   def proficient_for_subject_by_grade_in_year(subject, grade ,year)
-
-    #subject as a symbol from the following set: [:math, :reading, :writing]
-    #grade as an integer from the following set: [3, 8]
-    #year as an integer for any year reported in the data
-    #returns a truncated three digit floating point number representing a percentage
+    hi = @data.fetch(:by_subject_year_and_grade)
+         .select {|row| row.fetch("subject") == subject.to_s}
+         .select {|row| row.fetch("grade") == grade}
+         .select {|row| row.fetch("year") == year}
+         .map    {|row| row.fetch("proficiency")}.pop
+         
   end
 
   def proficient_for_subject_in_year(subject, year)

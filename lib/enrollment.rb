@@ -1,3 +1,5 @@
+require 'unknown_error'
+
 class Enrollment
 
   attr_reader :data
@@ -7,62 +9,58 @@ class Enrollment
   end
 
   def dropout_rate_in_year(year)
-#     #Call to this method with an unknown year will return nil
-#     #The method returns a truncated three digit floating point representing a percentage
-#     #example: enrollment.dropout_rate_in_year(2012) # => 0.680
+    dropout_rate = @data.fetch(:dropout_rates)
+    a = dropout_rate.select {|row| row.fetch("year") == (year)}
+    b = a.select {|row| row.fetch("category") == "all"}
+                .map     {|row| row.fetch("rate")  }.pop
+
   end
 
   def dropout_rate_by_gender_in_year(year)
-#     #Call to this method with an unknown year will return nil
-#     #The method returns a has with gender markers as keys and a three digit floating point representing a percentage
-#     #example: enrollment.dropout_rate_by_gender_in_year(2012) => {:female => 0.002, :male => 0.002}
+    dropout_rate = @data.fetch(:dropout_rates)
+    race = dropout_rate.reject {|row| row.fetch("category") == "white" || row.fetch("category") == "black" || row.fetch("category") == "pacific_islander" || row.fetch("category") == "native_american" || row.fetch("category") == "asian" || row.fetch("category") == "hispanic" || row.fetch("category") == "two_or_more" || row.fetch("category") == "all"}
+    gender = race.map { |row| row.fetch("category")}
+    rate = race.map { |row| row.fetch("rate")}
+    dropout_rate_by_gender = gender.zip(rate).to_h
+    final = dropout_rate_by_gender.map { |key, value| [key.to_sym, value] }.to_h
+    # binding.pry
   end
 
   def dropout_rate_by_race_in_year(year)
-#     #Call to this method with an unknown year will return nil
-#     #The method returns a has with gender markers as keys and a three digit floating point representing a percentage
-#     #enrollment.dropout_rate_by_race_in_year(2012)=> { :asian => 0.001,
-#     #                                                  :black => 0.001,
-#     #                                                  :pacific_islander => 0.001,
-#     #                                                  :hispanic => 0.001,
-#     #                                                  :native_american => 0.001,
-#     #                                                  :two_or_more => 0.001,
-#     #                                                  :white => 0.001
-#     #                                                 }
+    dropout_rate = @data.fetch(:dropout_rates)
+    race = dropout_rate.reject {|row| row.fetch("category") == "male" || row.fetch("category") == "female" || row.fetch("category") == "all"}
+    category = race.map {|row| row.fetch("category")}
+    rate =race.map {|row| row.fetch("rate")}
+    dropout_rate_by_race = category.zip(rate).to_h
+    final = dropout_rate_by_race.map { |key, value| [key.to_sym, value] }.to_h
+
   end
 
   def dropout_rate_for_race_or_ethnicity(race)
-#     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
-#     # A call to this method with any unknown race should raise an UnknownRaceError.
-#     # The method returns a hash with years as keys and a three-digit floating point number representing a percentage
-#     # example: enrollment.dropout_rate_for_race_or_ethnicity(:asian) => {2011 => 0.047, 2012 => 0.041}
+    raise "Unknown Race Error" unless :asian
+    dropout_rate = @data.fetch(:dropout_rates)
+    race = dropout_rate.select { |row| row.fetch("category").to_sym == race}
+    race.map {|key, value| [key.fetch("year"), key.fetch("rate")]}.to_h
   end
 
   def dropout_rate_for_race_or_ethnicity_in_year(race, year)
-#     # race as a symbol from the following set: [:asian, :black, :pacific_islander, :hispanic, :native_american, :two_or_more, :white]
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a truncated three-digit floating point number representing a percentage.
-#     # Example:enrollment.dropout_rate_for_race_or_ethnicity_in_year(:asian, 2012) # => 0.001
+    dropout_rate = @data.fetch(:dropout_rates)
+    a = dropout_rate.select {|row| row.fetch("year") == year}
+    b = a.select {|row| row.fetch("category") == race.to_s}
+    b.map {|row| row.fetch("rate")}.pop
   end
 
-  def graduation_rate_by_year(year)
-#     # This method returns a hash with years as keys and a truncated three-digit floating point number representing a percentage.
-#     # Example:enrollment.graduation_rate_by_year
-#     # => { 2010 => 0.895,
-#     #      2011 => 0.895,
-#     #      2012 => 0.889,
-#     #      2013 => 0.913,
-#     #      2014 => 0.898,
-#     #    }
+  def graduation_rate_by_year
+    graduation_rate_by_year = @data.fetch(:graduation_rate_by_year)
+    graduation_rate_by_year.map { |key, value| [key.to_i, value] }.to_h
   end
 
   def graduation_rate_in_year(year)
-    0.895
-#     # year as an integer for any year reported in the data
-#     # A call to this method with any unknown year should return nil.
-#     # The method returns a truncated three-digit floating point number representing a percentage.
-#     # Example:enrollment.graduation_rate_in_year(2010) # => 0.895
+    if graduation_rate_by_year.has_key?(year)
+    graduation_rate_by_year.fetch(year)
+    else
+      nil
+    end
   end
 
   def kindergarten_participation_by_year

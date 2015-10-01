@@ -30,16 +30,6 @@ class TestEconomicProfile < Minitest::Test
     assert_equal 0.304, district.economic_profile.school_aged_children_in_poverty_in_year(2011)
   end
 
-  def test_median_income_by_years
-    district = repository.find_by_name("Colorado")
-    assert_equal 56222, district.economic_profile.median_income_by_years(2005-2009)
-  end
-
-  def test_median_income_by_years_in_different_district
-    district = repository.find_by_name("VILAS RE-5")
-    assert_equal 26250, district.economic_profile.median_income_by_years(2006-2010)
-  end
-
   def test_title_1_by_year
     district = repository.find_by_name("AGATE 300")
     assert_equal 0.6, district.economic_profile.title_1_students_in_year(2012)

@@ -14,20 +14,22 @@ class DistrictRepository
   #   keys are district names
   #   values are hashes of district data
   def initialize(final_repository)
-    @final_repository = final_repository
+    @final_repository = final_repository.map {|name, data| [name, District.new(data)]}.to_h
   end
 
   def find_by_name(name)
-    district_data = @final_repository.fetch(name.downcase)
-    
-    District.new(district_data)
-
+    downcase_name = name.downcase
+    if @final_repository[downcase_name].nil?
+      nil
+    else
+      @final_repository.fetch(downcase_name)
+    end
   end
 
   def find_all_matching(name_fragment)
     result_array = []
     @final_repository.each do |word|
-      if word[0].include?(name_fragment.upcase)
+      if word[0].include?(name_fragment.downcase)
       result_array << word[1]
       end
     end
